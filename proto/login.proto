@@ -1,0 +1,14 @@
+syntax="proto2";
+
+package login;
+
+message login {
+    required string username = 1;
+    required string password = 2;
+}
+
+message loginResult {
+    optional uint32 uid = 1;
+    required uint32 username = 2;
+    required int32  result = 3;
+}
