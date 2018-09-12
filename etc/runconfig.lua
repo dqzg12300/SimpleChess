@@ -9,6 +9,9 @@ return {
 	prototype = "tcp",  --tcp/ws
 	protopack = "pbc",   --pbc/json
 
+    games_common = {
+		ddz = "libddz",
+    },
 
 	--各个服务配置
 	service = {

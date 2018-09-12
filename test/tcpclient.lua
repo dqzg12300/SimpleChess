@@ -114,15 +114,15 @@ function M.login(account,password)
 end
 
 function M.create_room(game_name)
-    M.send("scene.create_room", {game = game_name})
+    M.send("create_room", {game = game_name})
 end
 
 function M.enter_room(game,room_id)
-    M.send("scene.enter_room", {id=room_id,game=game})
+    M.send("enter_room", {id=room_id,game=game})
 end
 
 function M.leave_room()
-    M.send("scene.leave_room",{})
+    M.send("leave_room",{})
 end
 
 return M

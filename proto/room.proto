@@ -1,0 +1,36 @@
+syntax=proto2;
+
+package room;
+
+--创建桌子
+message create_room {
+    --请求进入的游戏(ddz)
+    required string game = 2;
+}
+--创建桌子回包
+message create_roomResult {
+    --房间id
+    required int32 room_id  = 1;
+    --创建的结果(0:成功 其他:失败)
+    required int32 result   = 2;
+}
+--进入桌子
+message enter_room {
+    required int32  room_id = 1;
+    required int32  game    = 2;
+}
+--进入桌子回包
+message enter_roomResult {
+    required int32  room_id = 1;
+    --创建的结果(0:成功 其他:失败)
+    required int32  result = 2;
+}
+--离开桌子
+message leave_room {
+
+}
+--离开桌子回包
+message leave_roomResult {
+    --创建的结果(0:成功 其他:失败)
+    required int32  result = 1;
+}
