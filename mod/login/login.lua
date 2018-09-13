@@ -19,7 +19,7 @@ local nodename=skynet.getenv("nodename")
 
 function forward.login(fd, msg, source)
     local account = msg.username
-    local msgresult={username=msg.username,_cmd=msg._cmd,_check=msg._check}
+    local msgresult={username=account,_cmd=msg._cmd,_check=msg._check}
 
     --key
     key_seq = key_seq + 1
@@ -59,8 +59,8 @@ function forward.login(fd, msg, source)
     }
     local ret, agent = libagentpool.login(data)
     if not ret then
-        libcenter.logout(uid, key)
         ERROR("++++++++++++", uid, " login fail, load data err +++++++++")
+        libcenter.logout(uid, key)
         msgresult.result = AUTH_ERROR.load_data_fail
         return msgresult
     end
@@ -70,8 +70,8 @@ function forward.login(fd, msg, source)
         key = key,
     }
     if not libcenter.register(uid, data) then
-        libcenter.logout(uid, key)
         ERROR("++++++++++++", uid, " login fail, register center fail +++++++++")
+        libcenter.logout(uid, key)
         msgresult.result =AUTH_ERROR.center_register_fail
         return msgresult
     end
@@ -83,14 +83,14 @@ function forward.login(fd, msg, source)
         key = key
     }
     if not skynet.call(source, "lua", "register", data) then
-        libcenter.logout(uid, key)
         ERROR("++++++++++++", uid, " login fail, register gate fail +++++++++")
+        libcenter.logout(uid, key)
         msgresult.result = AUTH_ERROR.LOGIN_REGISTER_GATE_FILE
         return msgresult
     end
     msgresult.uid = uid
     msgresult.result = SYSTEM_ERROR.success
 
-    INFO("++++++++++++++++login success uid:", uid, "++++++++++++++++++")
+    INFO("++++++++++++++++login success uid:", uid, " account:"..account.."++++++++++++++++++")
     return msgresult
 end

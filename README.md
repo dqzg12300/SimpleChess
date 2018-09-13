@@ -24,4 +24,10 @@ https://github.com/zhanjunxiong/RillServer
 * 需要先装好protobuf。如碰到警告 No syntax specified for the proto file.这种不用管,是由于例子里面没有syntax="proto2"
 
 ## 数据库相关
-默认的runconfig配置的db节点的enable是false，则不会加载数据库。如已经装好数据库。可以配置好后设置为true启用
+默认的runconfig配置的db节点的enable是false，则不会加载数据库。如已经装好数据库。可以配置好后设置为true启用。
+
+## protobuf相关错误
+如果出现error while loading shared libraries: libprotobuf.so.17: cannot open shared object file: No such file or directory。  
+这种情况需要是没有安装protobuf或者是没有加入到环境变量  
+可以临时加下export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib  
+或者自行加到bash_profile中

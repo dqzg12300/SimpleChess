@@ -13,18 +13,30 @@ local dispatch=module.dispatch
 local ROOM_MAP={}
 
 function dispatch.create_room()
+    INFO("scene_ddz create_room")
     local room_id=libdbproxy.inc_room()
     local addr=skynet.newservice("room_ddz","room_ddz",room_id)
-    skynet.call(addr,"lua","start")
     ROOM_MAP[room_id]=addr
-    local ret={result=0,room_id=room_id}
-    return ret
+    skynet.call(addr,"lua","room_ddz.start")
+    return room_id
 end
 
-function dispatch.enter_room(room_id,uid)
-
+function dispatch.enter_room(room_id,data)
+    INFO("scene_ddz enter_room")
+    local addr=ROOM_MAP[room_id]
+    if not addr then
+        log.debug("enter_room not found room_id:%d",room_id)
+        return DESK_ERROR.room_not_found
+    end
+    return skynet.call(addr,"lua","room_ddz.enter_room",data)
 end
 
 function dispatch.leave_room(room_id,uid)
-
+    INFO("scene_ddz leave_room")
+    local addr=ROOM_MAP[room_id]
+    if not addr then
+        log.debug("enter_room not found room_id:%d",room_id)
+        return DESK_ERROR.room_not_found
+    end
+    return skynet.call(addr,"lua","room_ddz.leave_room",uid)
 end

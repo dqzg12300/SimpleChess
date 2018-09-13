@@ -71,17 +71,14 @@ local function start_center()
     end
 end
 
-
---local function testpbc()
---    local protopack=require "protopack"
---    local test={name="king",age=18}
---    local cmd="login.login"
---    local msg=protopack.pack(cmd,0,test)
---    local ucmd,check,data=protopack.local_unpack(msg)
---    INFO(ucmd)
---    INFO(data)
---end
-
+local function start_scene()
+    for i,v in pairs(serverconf.scene) do
+        if nodename==v.node then
+            skynet.newservice("scene","scene",i)
+            INFO("start scene"..i)
+        end
+    end
+end
 
 skynet.start(function()
 	INFO("server start")
@@ -90,6 +87,7 @@ skynet.start(function()
     start_login()
     start_agentpool()
     start_center()
+    start_scene()
 	start_gate()
 	skynet.exit()
 end)

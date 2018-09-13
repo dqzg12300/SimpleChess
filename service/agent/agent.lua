@@ -35,7 +35,8 @@ function CMD.send2client(msg)
     msg._cmd=nil
     msg._check=nil
     local buff=protopack.pack(cmd,check,msg)
-    libsocket.send2client(clientfd,buff)
+    INFO(#buff)
+    libsocket.send(clientfd,buff)
 end
 
 --与客户端连接断开时的处理
@@ -70,6 +71,7 @@ local function default_dispatch(cmd,msg)
     end
 end
 
+
 --要转发给其他服务的消息处理
 local function service_dispatch(service_name,cmd,msg)
     local service=env.service[service_name]
@@ -97,12 +99,21 @@ local function dispatch(_,_,buff)
     end
     local cmdlist=string.split(cmd,".")
     local ret
+    --if #cmdlist==2 then
+    --    ret=service_dispatch(cmdlist[1],cmdlist[2],msg)
+    --elseif #cmdlist==1 then
+    --    ret=default_dispatch(cmd,msg)
+    --end
+
     if #cmdlist==2 then
-        ret=service_dispatch(cmdlist[1],cmdlist[2],msg)
+        ret=default_dispatch(cmdlist[2],msg)
     elseif #cmdlist==1 then
         ret=default_dispatch(cmd,msg)
     end
+
     if ret then
+        ret._cmd=cmd.."Result"
+        INFO(inspect(ret))
         CMD.send2client(ret)
     end
 end

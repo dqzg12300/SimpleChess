@@ -12,16 +12,17 @@ local ROOM=require "room_ddz.room_ddz_logic"
 
 function dispatch.start()
     ROOM.init()
+    return SYSTEM_ERROR.success
 end
 
-function dispatch.enter(room_id,uid)
-    if ROOM.get_player_count()>ROOM.get_max_count() then
+function dispatch.enter(data)
+    if ROOM.is_table_full() then
         log.debug("room_enter player count full")
         return false
     end
-    return ROOM.enter(room_id,uid)
+    return ROOM.enter(data)
 end
 
-function dispatch.leave(room_id,uid)
-    return ROOM.leave(room_id,uid)
+function dispatch.leave(uid)
+    return ROOM.leave(uid)
 end

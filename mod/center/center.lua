@@ -78,7 +78,12 @@ function dispatch.logout(uid,key,reason)
         return false
     end
     if user.agent then
-        local isok=cluster.call(user.node,user.agent,"kick",uid,reason)
+        --local isok=cluster.call(user.node,user.agent,"kick",uid,reason)
+        --if not isok then
+        --    log.debug("center logout uid:%d fail,kick err",uid)
+        --    return false
+        --end
+        local isok=skynet.call(user.agent,'lua',"kick",uid,reason)
         if not isok then
             log.debug("center logout uid:%d fail,kick err",uid)
             return false

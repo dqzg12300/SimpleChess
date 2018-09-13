@@ -18,23 +18,6 @@ function login_login(msg)
 
 end
 
-function create_room(msg)
-    print("create_room ret:"..msg.result)
-end
-
-
-function enter_room(msg)
-    print("enter_room ret:"..msg.result)
-    --ws.leave_room()
-end
-
-function leave_room(msg)
-    print("leave_room ret:"..msg.result)
-end
-
-function game_start(msg)
-    print("ddz game start")
-end
 
 function Hander.CallBack(cmd,check,msg)
     funcname=string.gsub(cmd,"%.","_")

@@ -146,6 +146,7 @@ function client_dispatch(session, source, str)
 	local cmd, check, msg = protopack.unpack(str)
 	if not cmd then
 		skynet.send(source, "lua", "kick", fd)
+		INFO("client_dispatch not cmd")
 		return
 	end
 	msg._cmd = cmd
@@ -159,7 +160,6 @@ function client_dispatch(session, source, str)
 	if not isok then
 		isok, ret = romote_dispatch(cmdlist[1], cmdlist[2], fd, msg, source)
 	end
-	
 	if ret then
 		local rcmd, rcheck = ret._cmd.."Result", ret._check
 		ret._cmd = nil

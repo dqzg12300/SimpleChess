@@ -53,6 +53,8 @@ DESK_ERROR = {
 	player_no_seat = add{code = 0x0e01, desc = "玩家未在坐位上"},
 	game_has_begin = add{code = 0x0e02, desc = "游戏已经开始"},
 	game_state_limit = add{code = 0x0e03, desc = "游戏状态限制"},
+	room_not_found = add{code = 0x0e04, desc = "未找到指定桌子"},
+	room_not_uid = add{code = 0x0e05, desc = "未找到指定用户uid"},
 }
 
 

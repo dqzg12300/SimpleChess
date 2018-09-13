@@ -75,7 +75,7 @@ function handler.message(fd,msg,sz)
 
     else
         local login=liblogin.fetch_login()
-        log.debug("gate message redirect login fd:%d login:%s",fd,login)
+        log.debug("gate message redirect login fd:%d source:%s sz:%d",fd,source,sz)
         skynet.redirect(login,source,"client",fd,msg,sz)
     end
 end

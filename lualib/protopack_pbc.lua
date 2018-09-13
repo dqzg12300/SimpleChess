@@ -19,11 +19,11 @@ local function analysis_file(pathfile, path)
 	local package = ""
 	
 	for line in file:lines() do
-		local s, c = string.gsub(line, "^%s*package%s*([%w%.]+).*$", "%1")
+		local s, c = string.gsub(line, "^%s*package%s*([%w%._]+).*$", "%1")
 		if c > 0 then
 			package = s
 		end
-		local s, c = string.gsub(line, "^%s*message%s*([%w%.]+).*$", "%1")
+		local s, c = string.gsub(line, "^%s*message%s*([%w%._]+).*$", "%1")
 		if c > 0 then
 			local name = package.."."..s
 			local code = crc32.hash(name)

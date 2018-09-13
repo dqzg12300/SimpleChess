@@ -3,23 +3,34 @@
 --- Created by admin.
 --- DateTime: 2018/9/12 16:01
 ---
+local tablex=require "pl.tablex"
 
-local ROOM
+local ROOM={}
+local players={}
 
-function ROOM.get_player_count()
-
+function ROOM.init()
+    --这里初始化数据
 end
 
-function ROOM.get_max_count()
-
+function ROOM.is_table_full()
+    return tablex.size(players)>=3
 end
 
-function ROOM.enter(room_id,uid)
-
+function ROOM.enter(data)
+    local uid=data.uid
+    players[uid]=data
+    log.debug("logic enter_room play size:%d",tablex.size(players))
+    return SYSTEM_ERROR.success
 end
 
-function ROOM.leave(room_id,uid)
-
+function ROOM.leave(uid)
+    if not uid then
+        log.debug("logic leave_room uid is nil")
+        return DESK_ERROR.room_not_uid
+    end
+    players[uid]=nil
+    log.debug("logic enter_room play size:%d",tablex.size(players))
+    return SYSTEM_ERROR.success
 end
 
 return ROOM

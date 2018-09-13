@@ -71,10 +71,21 @@ return {
 		center={
 			[1]={node="node1"}
 		},
+		scene={
+			[1]={node="node1"},
+			[2]={node="node1"},
+		},
     },
 	--玩家数据表配置
 	playerdata = {
 		baseinfo = true,
 	},
+
+    ddz={
+	    global={
+		    [1] = "scene1",
+		    [2] = "scene2",
+	    },
+    },
 
 }
