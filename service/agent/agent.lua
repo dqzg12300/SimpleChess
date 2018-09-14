@@ -54,6 +54,13 @@ function CMD.kick()
         kickroom()
     end
     env.logout(accountdata)
+    local msg={
+        _cmd="room.kickNty",
+        uid=accountdata.uid,
+        result=0,
+        reason=LOGOUT_REASON.logout_kick,
+    }
+    CMD.send2client(msg)
     return true
 end
 

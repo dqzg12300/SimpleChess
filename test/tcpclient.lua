@@ -12,16 +12,14 @@ if _VERSION ~= "Lua 5.3" then
 end
 
 local M = {}
-local socket = require "client.socket"
-print("protopack pre")
 local protopack= require "protopackpbc"
-print("protopack init")
+local socket = require "client.socket"
 local fd = nil
 local cb = nil
 local cbt = nil
 M.stop = false
-
-
+--
+--
 function M.connect(ip, port, recvcb, timercb)
     cb = recvcb
     cbt = timercb
@@ -118,7 +116,7 @@ function M.create_room(game_name)
 end
 
 function M.enter_room(game,room_id)
-    M.send("room.enter_room", {id=room_id,game=game})
+    M.send("room.enter_room", {room_id=room_id,game=game})
 end
 
 function M.leave_room()

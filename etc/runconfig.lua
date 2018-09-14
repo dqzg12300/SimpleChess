@@ -84,7 +84,6 @@ return {
     ddz={
 	    global={
 		    [1] = "scene1",
-		    [2] = "scene2",
 	    },
     },
 

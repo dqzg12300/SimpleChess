@@ -102,7 +102,7 @@ function env.login(accountdata)
     player = {
         addr = skynet.self(),
         uid = accountdata.uid,
-        account = accountdata,
+        accountdata = accountdata,
         mod_datas = {}
     }
 
@@ -123,5 +123,6 @@ end
 function env.logout()
     save_data()
     chan:unsubscribe()
+
     --是否要 取消 定时保存操作？
 end

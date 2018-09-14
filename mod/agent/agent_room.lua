@@ -42,18 +42,16 @@ function M.create_room(msg)
     end
     lib=cal_lib(msg.game)
     local player=env.get_player()
-    local room_id=lib.create_room(player.uid)
+    local rid=lib.create_room(player.uid)
     local ack={}
     ack.result=0
-    ack.room_id=room_id
-    ack._cmd=msg._cmd
-    ack._check=msg._check
+    ack.room_id=rid
     return ack
 end
 
 --进入房间逻辑
 function M.enter_room(msg)
-    INFO("agent enter_room node:"..node)
+    INFO("agent enter_room room_id:"..msg.room_id)
     if room_id then
         --踢出房间
     end
@@ -63,13 +61,15 @@ function M.enter_room(msg)
     local data={
         uid=uid,
         agent=player.agent,
-        node=node,
+        account=player.accountdata.account,
     }
     local ret=lib.enter_room(msg.room_id,data)
     if ret==0 then
-        room_id=ret.room_id
+        room_id=msg.room_id
     end
+
     local ack={
+        room_id=msg.room_id,
         result=ret,
     }
     return ack

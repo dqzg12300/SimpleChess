@@ -2,7 +2,6 @@ local lfs = require "lfs"
 
 local M = {}
 
-
 local sep = string.match (package.config, "[^\n]+")
 function M.attrdir(path, cb)
 	local ret = {}

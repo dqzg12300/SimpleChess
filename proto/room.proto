@@ -19,8 +19,7 @@ message create_roomResult {
 //进入桌子
 message enter_room {
     required int32  room_id = 1;
-    required int32  game    = 2;
-
+    required string game    = 2;
 }
 //进入桌子回包
 message enter_roomResult {
@@ -38,4 +37,23 @@ message leave_roomResult {
     //创建的结果(0:成功 其他:失败)
     required int32  result = 1;
 
+}
+
+//玩家的数据结构
+message player_item {
+    required int32 uid = 1;
+    required string username = 2;
+}
+
+//服务端推送桌子玩家数据
+message flush_userdataNty {
+    repeated player_item data = 1;
+}
+
+
+//踢出的通知
+message kickNty {
+    required int32 uid    = 1;
+    required int32 result = 2;
+    required int32 reason = 3;
 }

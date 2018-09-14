@@ -57,5 +57,10 @@ DESK_ERROR = {
 	room_not_uid = add{code = 0x0e05, desc = "未找到指定用户uid"},
 }
 
+LOGOUT_REASON = {
+	logout_normal = add{code = 0x0f01, desc = "玩家正常登出"},
+	logout_kick = add{code = 0x0f02, desc = "玩家被踢登出"},
+}
+
 
 return errors

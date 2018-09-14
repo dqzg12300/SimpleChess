@@ -51,10 +51,8 @@ function forward.login(fd, msg, source)
         gate = source,
         accountdata = {
             uid = uid,
-            account = {
-                account = msg.username,
-                password = msg.password,
-            }
+            account = msg.username,
+            password = msg.password,
         }
     }
     local ret, agent = libagentpool.login(data)
