@@ -6,6 +6,12 @@
 local log=require "log"
 local libdbproxy = require "libdbproxy"
 
+--sdk 列表 1为内联 2为debug
+local sdk     = {
+    inner       = 1,
+    debug       = 2,
+}
+
 --注册,并插入到数据库
 local function register(account, password)
     if not account then
@@ -50,9 +56,37 @@ local function check_normal_sdk(account, password)
     return false
 end
 
-return function(userdata)
+
+local function inner_auth(openId, userdata)
     local account = userdata.username
     local password = userdata.password
+
     return check_normal_sdk(account, password)
 end
 
+local function debug_auth(openId, userdata)
+    local appkey = "NGE8sVGVy3rvY4e6GflP3vdbCdo830qHxVa"
+    local sign = md5.sumhexa(openId .. appkey)
+    if sign ~= userdata then
+        INFO("sign not equal userdata")
+        return false
+    end
+    local ret = libdbproxy.get_accountsdk(openId)
+    if not ret then
+        INFO("not this user in db")
+        return false
+    end
+    return true
+end
+
+
+local auth_handler = {
+    [sdk.inner] = inner_auth,
+    [sdk.debug] = debug_auth,
+}
+
+return function(sdk, userdata)
+    local fc = auth_handler[sdk]
+    local openId = userdata.openId or ""
+    return fc(openId, userdata)
+end

@@ -6,8 +6,8 @@ return {
 		node1 = "127.0.0.1:2528", 
 	},
 	--通信协议
-	prototype = "tcp",  --tcp/ws
-	protopack = "pbc",   --pbc/json
+	prototype = "ws",  --tcp/ws
+	protopack = "json",   --pbc/json
 
     games_common = {
 		ddz = "libddz",

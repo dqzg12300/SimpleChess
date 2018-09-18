@@ -108,7 +108,7 @@ function M.init(ip,port,hander)
 end
 
 function M.login(account,password)
-    M.send("login.login", {username = account, password = password})
+    M.send("login.login", {username = account, password = password,sdkid=1})
 end
 
 function M.create_room(game_name)

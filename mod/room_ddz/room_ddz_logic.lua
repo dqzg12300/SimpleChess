@@ -5,18 +5,18 @@
 ---
 local tablex=require "pl.tablex"
 local libcenter=require "libcenter"
-local ROOM={}
-local players={}
+local ROOM=require "room_ddz.ddz_logic"
 
-function ROOM.init()
-    --这里初始化数据
+function ROOM:init()
+    self._players={}
+    self:init_game()
 end
 
-function ROOM.is_table_full()
+function ROOM:is_table_full()
     return tablex.size(players)>=3
 end
 
-function ROOM.broadcast(msg,filterUid)
+function ROOM:broadcast(msg,filterUid)
     DEBUG("broadcast")
     for k,v in pairs(players) do
         if not filterUid or filterUid~=k then
@@ -37,17 +37,20 @@ local function get_usersdata()
     return data
 end
 
-function ROOM.enter(data)
+function ROOM:enter(data)
     local uid=data.uid
     players[uid]=data
     local data=get_usersdata()
-    INFO(inspect(data))
     ROOM.broadcast({_cmd="room.flush_userdataNty",data=data})
+    if is_table_full() then
+        --启动游戏
+        self:start()
+    end
     log.debug("logic enter_room play size:%d",tablex.size(players))
     return SYSTEM_ERROR.success
 end
 
-function ROOM.leave(uid)
+function ROOM:leave(uid)
     if not uid then
         log.debug("logic leave_room uid is nil")
         return DESK_ERROR.room_not_uid

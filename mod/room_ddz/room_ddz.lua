@@ -11,7 +11,7 @@ local dispatch=module.dispatch
 local ROOM=require "room_ddz.room_ddz_logic"
 
 function dispatch.start()
-    ROOM.init()
+    ROOM:init()
     return SYSTEM_ERROR.success
 end
 

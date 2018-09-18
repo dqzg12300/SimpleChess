@@ -20,15 +20,14 @@ local nodename=skynet.getenv("nodename")
 function forward.login(fd, msg, source)
     local account = msg.username
     local msgresult={username=account,_cmd=msg._cmd,_check=msg._check}
-
+    local sdkid=msg.sdkid
     --key
     key_seq = key_seq + 1
     local key = env.id*10000 + key_seq
-
     --login 校验账号密码
-    local isok, uid = login_auth(msg)
+    local isok, uid = login_auth(sdkid,msg)
     if not isok then
-        log.error("account:%d login login_auth fail",account)
+        log.error("account:%s login login_auth fail",account)
         msgresult.result = AUTH_ERROR.password_wrong
         return msgresult
     end
