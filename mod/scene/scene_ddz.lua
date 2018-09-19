@@ -44,7 +44,7 @@ function dispatch.enter_room(room_id,data)
         log.debug("enter_room not found room_id:%d",room_id)
         return DESK_ERROR.room_not_found
     end
-    roomItem.count=roomItem+1
+    roomItem.count=roomItem.count+1
     return skynet.call(roomItem.addr,"lua","room_ddz.enter",data)
 end
 

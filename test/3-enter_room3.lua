@@ -1,5 +1,5 @@
 ---
---- 登陆并创建桌子的例子,创建并加入自己的桌子
+--- 登陆并加入已经创建好的桌子
 --- Created by admin.
 --- DateTime: 2018/9/13 12:18
 ---
@@ -8,11 +8,11 @@ local client=require "tcpclient"
 
 local Hander={}
 local CMD={}
-
+local room_id=nil
 function CMD.login_loginResult(msg)
     if msg.result==0 then
         print("account:"..msg.username.." success")
-        client.create_room("ddz")
+        client.enter_room("ddz",room_id)
     else
         print("account:"..msg.username..",login err:",msg.result)
     end
@@ -38,20 +38,8 @@ function CMD.room_enter_roomResult(msg)
     end
 end
 
-function CMD.room_kickNty(msg)
-    print("uid:"..msg.uid.." reason:"..msg.reason)
-    if msg.result==0 then
-        print("kick success")
-    else
-        print("create room err ")
-    end
-end
-
 function CMD.room_flush_userdataNty(msg)
     print("cur player data")
-    if not msg then
-        print("flush err")
-    end
     for i,v in pairs(msg.data) do
         print("player uid:"..v.uid..",username:"..v.username)
     end
@@ -66,8 +54,12 @@ function Hander.CallBack(cmd,check,msg)
     end
 end
 
+print("please enter room_id:")
+room_id=io.read("*number")
+print(room_id)
+
 client.init("127.0.0.1",11200,Hander)
-client.login("king","111111")
+client.login("maxjin","111111")
 client.start()
 
 

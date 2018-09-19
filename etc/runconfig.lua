@@ -6,8 +6,8 @@ return {
 		node1 = "127.0.0.1:2528", 
 	},
 	--通信协议
-	prototype = "ws",  --tcp/ws
-	protopack = "json",   --pbc/json
+	prototype = "tcp",  --tcp/ws
+	protopack = "pbc",   --pbc/json
 
     games_common = {
 		ddz = "libddz",
@@ -22,17 +22,6 @@ return {
 
 		--dbproxy服务
 		dbproxy_common = {
-            --mysql数据库配置表模板.mysql暂时不支持一个库多个表查询
-			wx_user = {
-				db_type = "mysqldb",
-				host = "127.0.0.1", 
-				db_name = "wx_user",
-				port=3306,
-				database="demo",
-				user="root",
-				password="123456",
-				enable=false,
-			},
             --mongodb数据库配置表模板
             accountdb = {
                 db_type = "mongodb",

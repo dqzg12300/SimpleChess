@@ -57,8 +57,15 @@ function M.send(name, args)
     print("Request:", session)
 end
 
-local recvstr = ""
+--打印二进制string，用于调试
+local function bin2hex(s)
+    s=string.gsub(s, "(.)", function (x) return string.format("%02X ", string.byte(x)) end)
+    return s
+end
+
+
 local function dispatch_package()
+    local recvstr = ""
     while true do
         local v
         v = recv_package()

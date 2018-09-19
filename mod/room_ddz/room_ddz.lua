@@ -16,13 +16,13 @@ function dispatch.start()
 end
 
 function dispatch.enter(data)
-    if ROOM.is_table_full() then
+    if ROOM:is_table_full() then
         log.debug("room_enter player count full")
         return false
     end
-    return ROOM.enter(data)
+    return ROOM:enter(data)
 end
 
 function dispatch.leave(uid)
-    return ROOM.leave(uid)
+    return ROOM:leave(uid)
 end

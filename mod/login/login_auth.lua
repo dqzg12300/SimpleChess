@@ -30,7 +30,7 @@ local function register(account, password)
         password = password,
     }
     libdbproxy.set_accountdata(account, data)
-    log.info("register succ account:%d uid:%d", account,uid)
+    log.info("register succ account:%s uid:%d", account,uid)
     return true, uid
 end
 

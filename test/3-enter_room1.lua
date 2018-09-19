@@ -59,7 +59,7 @@ room_id=io.read("*number")
 print(room_id)
 
 client.init("127.0.0.1",11200,Hander)
-client.login("king","111111")
+client.login("king007","111111")
 client.start()
 
 

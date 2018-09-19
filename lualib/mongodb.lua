@@ -53,14 +53,13 @@ function mongodb:update(cname, selector, update, upsert)
 	collection:update(selector, update, upsert)
 	local r = db:runCommand("getLastError")
     if r.err ~= bson.null then
-        ERROR("mongodb update error-> ", cname, " selector ", selector, " err:", r.err)
+        ERROR("mongodb update -> ",inspect(update)," cname ", cname, " selector ", inspect(selector), " err:", r.err)
 		return false, r.err
 	end
 
     if r.n <= 0 then
-        ERROR("mongodb update-> ", cname, " selector ", selector, " failed")
+        ERROR("mongodb update-> ",inspect(update)," cname ", cname, " selector ", inspect(selector), " failed")
     end
-
     DEBUG("=======mongodb update finish ", cname, " selecto-> ", r.n,  "========")
 	return true, r.err
 end

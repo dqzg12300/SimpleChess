@@ -41,7 +41,7 @@ function dispatch.get(dbname,cname,select)
 end
 
 function dispatch.set(dbname,cname,select,update)
-	return db[dbname]:update(cname,select,update)
+	return db[dbname]:update(cname,select,update,true)
 end
 
 function dispatch.insert(dbname,cname,data)
