@@ -77,20 +77,27 @@ local function dispatch_package()
         if string.len(recvstr) < 2 then
             return nil
         end
-        local len = string.unpack("> i2", recvstr)
-        while string.len(recvstr)-2 >= len do
-            local f = string.format("> i2 c%d", len)
+        local msgSize = string.unpack("> i2", recvstr)
+        local recvlen=string.len(recvstr)-2
+        while string.len(recvstr)-2 >= msgSize do
+            print("recvlen:"..recvlen..",len:"..msgSize)
+            local f = string.format("> i2 c%d", msgSize)
             local len, str = string.unpack(f, recvstr)
             local cmd, check, msg = protopack.unpack(str)
             recvstr = string.sub(recvstr, len+1+2, string.len(recvstr))
+            if string.len(recvstr) >2 then
+                msgSize = string.unpack("> i2", recvstr)
+            end
             if cb then
                 cb(cmd,check,msg)
             else
                 print("cb == nil")
             end
+
         end
     end
 end
+
 
 function M.start()
     while true do

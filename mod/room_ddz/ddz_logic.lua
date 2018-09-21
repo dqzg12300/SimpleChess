@@ -4,7 +4,7 @@
 --- DateTime: 2018/9/17 11:49
 ---
 
-local DDZ=class("DDZ")
+local M = {}
 local machine=require "statemachine"
 local timer=require "timer"
 --状态机
@@ -13,7 +13,7 @@ local handler={}
 local t=nil
 local tidx=nil
 
-function DDZ:init_game()
+function M.init_game()
     t=timer:new()
     t:init()
     --这里初始化状态机
@@ -33,15 +33,15 @@ function handler.onstart()
     INFO("game start")
 end
 
-function DDZ:init_status()
+function M.init_status()
     fsm:none()
 end
 
-function DDZ:start()
+function M.start()
     INFO("game full,pre start")
     tidx=t:register(3,function()
         fsm:start()
     end)
 end
 
-return DDZ
+return M

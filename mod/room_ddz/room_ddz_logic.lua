@@ -5,12 +5,13 @@
 ---
 local tablex=require "pl.tablex"
 local libcenter=require "libcenter"
-local ROOM=require "room_ddz.ddz_logic"
+local logic=require "room_ddz.ddz_logic"
+local ROOM=class("ROOM_DDZ_LOGIC")
 local env=require "faci.env"
 
 function ROOM:init()
     self._players={}
-    self:init_game()
+    logic.init_game()
     log.debug("room_id:%d init",env.id)
 end
 
@@ -46,7 +47,7 @@ function ROOM:enter(data)
     self:broadcast({_cmd="room.flush_userdataNty",data=data})
     if self:is_table_full() then
         --启动游戏
-        self:start()
+        logic.start()
     end
     log.debug("logic enter_room play size:%d",tablex.size(self._players))
     return SYSTEM_ERROR.success
